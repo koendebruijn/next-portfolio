@@ -33,6 +33,10 @@ const StyledLinkedin = styled(LinkedinIcon)`
   height: 50px;
 `;
 
+const Link = styled.a`
+  cursor: pointer;
+`;
+
 const Hero = () => {
   return (
     <StyledWrapper
@@ -45,8 +49,15 @@ const Hero = () => {
         <Paragraph>This website is still under construction 🚧</Paragraph>
 
         <IconContainer>
-          <StyledEnvelop />
-          <StyledLinkedin />
+          <Link href='mailto:info@koendebruijn.com'>
+            <StyledEnvelop />
+          </Link>
+          <Link
+            href='https://www.linkedin.com/in/koen-de-bruijn-334138183/'
+            target='_blank'
+          >
+            <StyledLinkedin />
+          </Link>
         </IconContainer>
       </div>
     </StyledWrapper>
