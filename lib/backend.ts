@@ -8,7 +8,7 @@ class Backend {
       : "https://cryptic-dusk-28152.herokuapp.com/api/v1/";
 
   public async getProjects() {
-    const url = this.BASE_URL + "projects";
+    const url = `${this.BASE_URL}projects`;
 
     const { data: projects } = await axios.get<Project[]>(url);
 
