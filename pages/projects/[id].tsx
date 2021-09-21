@@ -1,7 +1,7 @@
 import { backend } from "lib/backend";
 import {
+  GetServerSideProps,
   GetStaticPaths,
-  GetStaticProps,
   GetStaticPropsContext,
   NextPage
 } from "next";
@@ -47,7 +47,7 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
 
 export default ProjectDetail;
 
-export const getStaticProps: GetStaticProps<Props> = async (
+export const getServerSideProps: GetServerSideProps<Props> = async (
   context: GetStaticPropsContext
 ) => {
   const { params } = context as Params;
