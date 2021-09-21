@@ -61,17 +61,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const projects = await backend.getProjects();
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const projects = await backend.getProjects();
 
-  const paths = projects.map((project) => {
-    return {
-      params: { id: project.id.toString() }
-    };
-  });
+//   const paths = projects.map((project) => {
+//     return {
+//       params: { id: project.id.toString() }
+//     };
+//   });
 
-  return {
-    paths,
-    fallback: false
-  };
-};
+//   return {
+//     paths,
+//     fallback: false
+//   };
+// };
