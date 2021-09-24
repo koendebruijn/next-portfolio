@@ -6,7 +6,10 @@ import {
   NextPage
 } from "next";
 import React from "react";
+import dynamic from "next/dynamic";
 import { Project } from "types/project";
+import matter from "gray-matter";
+import showdown from "showdown";
 
 interface Props {
   project: Project;
@@ -19,10 +22,15 @@ interface Params {
 }
 
 const ProjectDetail: NextPage<Props> = ({ project }) => {
+  const markdown = Buffer.from(project.readMe, "base64").toString();
+  const converter = new showdown.Converter({ ghCodeBlocks: true });
+  const html = converter.makeHtml(markdown);
+
   return (
     <div>
       <h1>{project.name}</h1>
       <p>{project.description}</p>
+      <div dangerouslySetInnerHTML={{ __html: html }}></div>
       <a
         href={project.html_url}
         style={{ display: "block" }}
@@ -60,18 +68,3 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     }
   };
 };
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const projects = await backend.getProjects();
-
-//   const paths = projects.map((project) => {
-//     return {
-//       params: { id: project.id.toString() }
-//     };
-//   });
-
-//   return {
-//     paths,
-//     fallback: false
-//   };
-// };

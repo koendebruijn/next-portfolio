@@ -1,4 +1,5 @@
 export interface Project {
+  readMe: string;
   name: string;
   id: number;
   description?: string;
