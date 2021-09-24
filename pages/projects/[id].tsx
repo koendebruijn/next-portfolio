@@ -1,15 +1,8 @@
 import { backend } from "lib/backend";
-import {
-  GetServerSideProps,
-  GetStaticPaths,
-  GetStaticPropsContext,
-  NextPage
-} from "next";
+import { GetServerSideProps, GetStaticPropsContext, NextPage } from "next";
 import React from "react";
-import dynamic from "next/dynamic";
 import { Project } from "types/project";
-import matter from "gray-matter";
-import showdown from "showdown";
+import { useReadme } from "hooks/useReadme";
 
 interface Props {
   project: Project;
@@ -22,9 +15,7 @@ interface Params {
 }
 
 const ProjectDetail: NextPage<Props> = ({ project }) => {
-  const markdown = Buffer.from(project.readMe, "base64").toString();
-  const converter = new showdown.Converter({ ghCodeBlocks: true });
-  const html = converter.makeHtml(markdown);
+  const html = useReadme(project.readMe);
 
   return (
     <div>
