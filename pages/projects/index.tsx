@@ -1,5 +1,5 @@
 import { backend } from "lib/backend";
-import { GetServerSideProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import React from "react";
 import Link from "next/link";
 import { Project } from "types/project";
@@ -22,12 +22,13 @@ const Projects: NextPage<Props> = ({ projects }) => {
 
 export default Projects;
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const projects = await backend.getProjects();
 
   return {
     props: {
       projects
-    }
+    },
+    revalidate: 10
   };
 };

@@ -1,5 +1,10 @@
 import { backend } from "lib/backend";
-import { GetServerSideProps, GetStaticPropsContext, NextPage } from "next";
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  GetStaticPropsContext,
+  NextPage
+} from "next";
 import React from "react";
 import { Project } from "types/project";
 import { useReadme } from "hooks/useReadme";
@@ -46,7 +51,17 @@ const ProjectDetail: NextPage<Props> = ({ project }) => {
 
 export default ProjectDetail;
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
+export const getStaticPaths: GetStaticPaths = async () => {
+  const projects = await backend.getProjects();
+
+  const paths = projects.map((project) => ({
+    params: { id: project.id.toString() }
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async (
   context: GetStaticPropsContext
 ) => {
   const { params } = context as Params;
@@ -56,6 +71,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   return {
     props: {
       project
-    }
+    },
+    revalidate: 10
   };
 };
